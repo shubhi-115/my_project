@@ -1,0 +1,59 @@
+{% extends "interviews/base.html" %}
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-5">
+        <h2>List of Participants</h2>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-5">
+        <a href = "{% url 'create_participant'%}"><button type="button" class="btn btn-dark">Add Participant</button></a>
+        <a href = "{% url 'list_resume' %}"><button type="button" class="btn btn-info">Show Uploaded Resume's</button></a>
+        <a href = "{% url 'get_interviews'%}"><button type="button" class="btn btn-primary">Back</button></a>
+    </div>
+</div>
+<hr>
+{% if participants %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">College</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Position Applied</th>
+        <th scope="col">Resume Upload</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+ {% for participant in participants %}
+        <tr>
+            <th scope="row">{{participant.name}}</th>
+            <td>{{participant.phone_number}}</td>
+            <td>{{participant.college}}</td>
+            <td>{{participant.gender}}</td>
+            <td>{{participant.position_applied}}</td>
+            <td>
+                {% if participant.resume %}
+                    <h6>Resume Added</h6>
+                {% else %}
+                    <form method="POST" action="{% url 'upload_resume' participant.name %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type = file required name="resumefile">
+                        <button type="submit" class="btn btn-primary btn-sm mt-2">Upload</button>
+                    </div>
+                    </form>
+                {% endif %}
+            </td>
+            <td><a href = "{% url 'edit_participant' participant.id %}"><button type="button" class="btn btn-success btn-sm">Edit</button></a></td>
+            <td><a href = "{% url 'delete_participant' participant.id %}"><button type="button" class="btn btn-danger btn-sm">Remove</button></a></td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h6>No Participants Added</h6>
+{% endif %}
+{% endblock %}

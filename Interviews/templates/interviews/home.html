@@ -1,0 +1,27 @@
+{% extends "interviews/base.html" %}
+
+{% block content %}
+<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="row justify-content-center mt-5">
+        <div class="col-md-7 text-center">
+        <h1>Create Interview Events and Manage them on Interview Portal</h1>
+        <p>The app has been create to manage and create interview events. You can create interviews, add participants to an interview and many more</p>
+        {% if user.is_authenticated %}
+            <a role="button" class="btn btn-primary btn-lg" href="{% url 'get_interviews' %}">
+                Check Schedule
+            </a>
+        {% else %}
+            <a role="button" class="btn btn-primary btn-lg" href="{% url 'loginuser' %}">
+                Log In
+            </a> 
+        {% endif %}
+        </a>
+        </div>
+    </div>
+
+{% endblock %}

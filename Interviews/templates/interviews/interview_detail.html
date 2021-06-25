@@ -1,0 +1,53 @@
+{% extends "interviews/base.html" %}
+
+{% block content %}
+<br>
+<br>
+<div class="jumbotron">
+    <h1 class="display-5">Interview for {{interview.title}}</h1>
+    <p class="lead"><b>Schedule</b>: From {{interview.start_time}} To {{interview.end_time}}</p>
+    <hr class="my-4">
+    <h5>Participants</h5>
+    <hr>
+    <div class="container-fluid p-0">
+        <div class="row">
+          <div class="col-sm">
+          {% if participants.candidate_one or participants.candidate_two%}
+            {% if participants.candidate_one %}
+                <h6>Participant One</h6>
+                <h6><b>Name:</b> {{participants.candidate_one.name}} </h6>
+                <h6><b>Phone Number:</b> {{participants.candidate_one.phone_number}} </h6>
+                <h6><b>College:</b> {{participants.candidate_one.college}} </h6>
+                <h6><b>Gender:</b> {{participants.candidate_one.gender}} </h6>
+                {% if participants.candidate_one.email %}
+                  <br>
+                  <center><a class="btn btn-dark btn-sm" href="{% url 'send_email' participants.candidate_one.id  interview.id %}" role="button">Send Email To {{participants.candidate_one.name}}</a></center>
+                {% endif %}
+            {% endif %}
+          </div>
+          <div class="col-sm">
+            {% if participants.candidate_two %}
+                <h6>Participant Two</h6>
+                <h6><b>Name:</b> {{participants.candidate_two.name}} </h6>
+                <h6><b>Phone Number:</b> {{participants.candidate_two.phone_number}} </h6>
+                <h6><b>College:</b> {{participants.candidate_two.college}} </h6>
+                <h6><b>Gender:</b> {{participants.candidate_two.gender}} </h6>
+                {% if participants.candidate_two.email %}
+                  <br>
+                  <center><a class="btn btn-dark btn-sm" href="{% url 'send_email' participants.candidate_two.id  interview.id %}" role="button">Send Email To {{participants.candidate_two.name}}</a></center>
+                {% endif %}
+            {% endif %}
+          {% else %}
+            <h6>No Participants Added</h6>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+    <br><br>
+    <p class="lead">
+      <a class="btn btn-success btn-sm" href="{% url 'edit_interview' interview.id %}" role="button">Edit Details</a>
+      <a class="btn btn-danger btn-sm" href="{% url 'delete_interview' interview.id %}" role="button">Delete</a>
+      <a class="btn btn-primary btn-sm" href="{% url 'get_interviews' %}" role="button">Back</a>
+    </p>
+  </div>
+{% endblock %}

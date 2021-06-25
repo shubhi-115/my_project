@@ -1,0 +1,54 @@
+{% extends "interviews/base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="row mt-5">
+    <div class="col-md-5">
+        <h2>Edit Interview</h2>
+        <h6>Edit Interview Details for {{interview.title}}</h6>
+        <h7>Schedule: {{interview.start_time}} to {{interview.end_time}}</h7><br>
+        <a href = "{% url 'get_interviews' %}"><button type="button" class="btn btn-success btn-info btn-sm">Back</button></a>
+    </div>
+</div>
+<hr>
+<div class="row mt-5">
+    <div class="col-md-5">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-group">
+                <label>Participant One: </label>
+                <select class="form-control" name = "participant_one">
+                    <option value="None">None</option>
+                        {% for part in participants %} 
+                        {% if part.name == participant.candidate_one.name %}
+                            <option value="{{part.name}}" selected>{{ part.name }}</option>
+                        {% else %}
+                            <option value="{{part.name}}">{{ part.name }}</option>
+                        {% endif %}
+                        {% endfor %}      
+                </select><br>
+            </div>
+            <div class="form-group">
+                <label>Participant Two: </label>
+                <select class="form-control" name = "participant_two">
+                    <option value="None">None</option>
+                        {% for part in participants %} 
+                        {% if part.name == participant.candidate_two.name %}
+                            <option value="{{part.name}}" selected>{{ part.name }}</option>
+                        {% else %}
+                            <option value="{{part.name}}">{{ part.name }}</option>
+                        {% endif %}
+                        {% endfor %}      
+                </select><br>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+        <br><br>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "interviews/base.html" %}
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-5">
+        <h2>Uploaded Resumes</h2>
+    </div>
+</div>
+<hr>
+{% if participants %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Resume</th>
+    </tr>
+    </thead>
+    <tbody>
+ {% for participant in participants %}
+        {% if participant.resume %}
+        <tr>
+            <th scope="row">{{participant.name}}</th>
+            <td><a href="{{participant.resume.url}}" download>{{participant.resume}}</a></td>
+        </tr>
+        {% endif %}
+{% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h6>No Participants Found</h6>
+{% endif %}
+{% endblock %}

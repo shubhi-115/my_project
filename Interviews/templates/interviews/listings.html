@@ -1,0 +1,44 @@
+{% extends "interviews/base.html" %}
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-5">
+        <a href = "{% url 'create_interview'%}"><button type="button" class="btn btn-primary">Add Interview</button></a>
+        <a href = "{% url 'create_participant'%}"><button type="button" class="btn btn-dark">Add Participant</button></a>
+        <a href = "{% url 'listings_par'%}"><button type="button" class="btn btn-info">View All Participants</button></a>
+    </div>
+</div>
+<hr>
+<div class="row mt-5">
+    <div class="col-md-5">
+        <h2>List of Interviews</h2>
+    </div>
+</div>
+{% if interviews %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Date</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+ {% for interview in interviews %}
+        <tr>
+            <th scope="row"><a href="{% url 'interview_detail' interview.id %}">{{interview.title}}</a></th>
+            <td>{{interview.date}}</td>
+            <td>{{interview.start_time}}</td>
+            <td>{{interview.end_time}}</td>
+            <td><a href = "{% url 'edit_interview' interview.id %}"><button type="button" class="btn btn-success btn-sm">Edit Details</button></a></td>
+            <td><a href = "{% url 'delete_interview' interview.id %}"><button type="button" class="btn btn-danger btn-sm">Delete</button></a></td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h6>No Interviews Scheduled</h6>
+{% endif %}
+{% endblock %}
