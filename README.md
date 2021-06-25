@@ -10,6 +10,7 @@ whitenoise,
 ............pip install (all these packages)
 ONly admin or user created by admin can Use this site
 in my local computer required username and password are saved
+For sending emails to your participants you can type your emailid in EMAIL_HOST and password in EMAIL_PASSWORD in my_project=> settings.py .......
 If you want to use it Just email i will add you as user and will give you your password,
 
 agarwalshubhi38@gmail.com
